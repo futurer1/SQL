@@ -1,9 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 1
- * Date: 07.05.2017
- * Time: 14:21
  * Использование представлений в запросах
  */
 $qs="CREATE OR REPLACE VIEW `view_open_deals` AS 

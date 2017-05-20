@@ -1,7 +1,5 @@
 <?php
 /**
- * Date: 07.05.2017
- * Time: 14:48
  * Count по сгенеренной таблице
  */
 $qs="SELECT `const_clients_table`.`UserID`, 

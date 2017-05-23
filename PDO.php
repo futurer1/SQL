@@ -77,18 +77,22 @@ class SomeClass
     public $field3;
 
     function __construct($tmp_str="...") {    //можно обрабатывать данные в конструкторе класса
-        $this->field1 = ($this->field1).$tmp_str;   //присоединили три точки в конец переменной
+        $this->field1 = $this->field1 . $tmp_str;   //присоединили три точки в конец переменной field1
     }  
 }
 
-while($obj = $STH->fetch()) {   //перебираем безымянные объекты класса SomeClass
+while($obj = $STH->fetch()) {   //перебираем анонимные объекты класса SomeClass
     echo $obj->field1;
     echo $obj->field2;
     echo $obj->field3;
 }
 
-//Пример 2. PDO::FETCH_OBJ
+//Пример 3. PDO::FETCH_OBJ
 $STH = $DBH->query("SELECT field1, field2, field3 FROM table_name");
 $STH->setFetchMode(PDO::FETCH_OBJ);
-
+while($row = $STH->fetch()) {    //перебираем анонимные объекты без методов
+    echo $row->field1 . "\n";  
+    echo $row->field2 . "\n";  
+    echo $row->field3 . "\n";  
+}
 ?>

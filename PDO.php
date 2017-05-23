@@ -35,4 +35,11 @@ $STH->execute();    //выполнение запроса
 $mas_data = array( 'name_mark1' => 'Some name', 'name_mark2' => 'Some Address', 'name_mark3' => 'Some City' );  
 $STH = $DBH->prepare("INSERT INTO table_name (field1, field2, field3) values (:name_mark1, :name_mark2, :name_mark3)");
 $STH->execute($mas_data);   //отправляем массив с данными для подготовленного запроса
+
+//Пример 3. Безымянные метки.
+$STH = $DBH->prepare("INSERT INTO table_name (field1, field2, field3) values (?, ?, ?)");
+$STH->bindParam(1, $val1);    //это не ошибка, нумерация для безымянных меток начинается именно с 1
+$STH->bindParam(2, $val2);
+$STH->bindParam(3, $val3);
+$STH->execute();
 ?>

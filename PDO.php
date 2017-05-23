@@ -1,5 +1,6 @@
 <?php
-//подключение через класс PDO
+//Мануал:    http://php.net/manual/ru/book.pdo.php
+//Подключение через класс PDO
 try {  
     //MS SQL Server и Sybase через PDO_DBLIB  
     $DBH = new PDO("mssql:host=$host;dbname=$dbname", $user, $pass);  
@@ -47,4 +48,47 @@ $STH->execute();
 $STH = $DBH->prepare("INSERT INTO table_name (field1, field2, field3) values (?, ?, ?)");
 $mas_data = array('Some value for field1', 'Some value for field2', 'Some value for field3');
 $STH->execute($mas_data);
+
+
+//Выполнение запроса SELECT и разбор результатов
+
+//Пример 1. PDO::FETCH_ASSOC
+$STH = $DBH->query("SELECT field1, field2, field3 FROM table_name"); //сразу запрос без подготовки, т.к. в запросе нет меток
+$STH->setFetchMode(PDO::FETCH_ASSOC);   //режим отображения выборки
+/*Основные:
+PDO::FETCH_ASSOC: возвращает массив с названиями столбцов в виде ключей
+PDO::FETCH_CLASS: присваивает значения столбцов соответствующим свойствам указанного класса.
+                  Если для какого-то столбца свойства нет, оно будет создано
+PDO::FETCH_OBJ:   возвращает анонимный объект со свойствами, соответствующими именам столбцов
+*/
+while($res = $STH->fetch()) {  
+    //работаем с ассоциативным массивом, где ключ - название поля таблицы
+    //$res['field1'], $res['field2'], $res['field3']
+}
+
+//Пример 2. PDO::FETCH_CLASS
+$STH = $DBH->query("SELECT field1, field2, field3 FROM table_name");
+$STH->setFetchMode(PDO::FETCH_CLASS, 'SomeClass');                              //конструктор вызовется ПОСЛЕ присвоения значений
+//$STH->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'SomeClass');    //конструктор вызовется ДО присвоения значений
+class SomeClass
+{
+    public $field1; //заполнение значений (по умолчанию) происходит ДО вызова конструктора
+    public $field2;
+    public $field3;
+
+    function __construct($tmp_str="...") {    //можно обрабатывать данные в конструкторе класса
+        $this->field1 = ($this->field1).$tmp_str;   //присоединили три точки в конец переменной
+    }  
+}
+
+while($obj = $STH->fetch()) {   //перебираем безымянные объекты класса SomeClass
+    echo $obj->field1;
+    echo $obj->field2;
+    echo $obj->field3;
+}
+
+//Пример 2. PDO::FETCH_OBJ
+$STH = $DBH->query("SELECT field1, field2, field3 FROM table_name");
+$STH->setFetchMode(PDO::FETCH_OBJ);
+
 ?>

@@ -36,10 +36,15 @@ $mas_data = array( 'name_mark1' => 'Some name', 'name_mark2' => 'Some Address', 
 $STH = $DBH->prepare("INSERT INTO table_name (field1, field2, field3) values (:name_mark1, :name_mark2, :name_mark3)");
 $STH->execute($mas_data);   //отправляем массив с данными для подготовленного запроса
 
-//Пример 3. Безымянные метки.
+//Пример 3. Безымянные метки. Последовательная привязка
 $STH = $DBH->prepare("INSERT INTO table_name (field1, field2, field3) values (?, ?, ?)");
 $STH->bindParam(1, $val1);    //это не ошибка, нумерация для безымянных меток начинается именно с 1
-$STH->bindParam(2, $val2);
+$STH->bindParam(2, $val2);    //http://php.net/manual/ru/pdostatement.bindparam.php
 $STH->bindParam(3, $val3);
 $STH->execute();
+
+//Пример 4. Безымянные метки. Привязка переменных через массив.
+$STH = $DBH->prepare("INSERT INTO table_name (field1, field2, field3) values (?, ?, ?)");
+$mas_data = array('Some value for field1', 'Some value for field2', 'Some value for field3');
+$STH->execute($mas_data);
 ?>

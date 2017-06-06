@@ -25,10 +25,16 @@ abstract class Mapper
         return $object;
     }
 
-    public function createObject( $array )
+    public function createObject($array)
     {
-        $obj = $this->doCreateObject( $array );
+        $obj = $this->doCreateObject($array);
         return $obj;
+    }
+    
+    public function insert(\woo\domain\DomainObject $obj)      //делегирование полномочий методу doInsert()
+                                                               //чтобы астрагироваться от реализации
+    {
+        $this->doInsert($obj);
     }
 
     abstract function update( \woo\domain\DomainObject $object );

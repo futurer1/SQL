@@ -14,7 +14,8 @@ abstract class Mapper
         $this->PDO = $pdo;
     }
 
-    public function find($id)
+    public function find($id)    //метод для получения данных из строки БД
+                                 //возвращает объект, созданный на основе массива данных
     {
         $this->selectstmt()->execute( array( $id ) );
         $array = $this->selectstmt()->fetch( ); 
@@ -25,7 +26,8 @@ abstract class Mapper
         return $object;
     }
 
-    public function createObject($array)
+    public function createObject($array)    //делегируется создание объекта абстрактному методу doCreateObject()
+                                            //т.к. реализации этого процесса могут отличаться
     {
         $obj = $this->doCreateObject($array);
         return $obj;

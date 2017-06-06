@@ -34,6 +34,8 @@ abstract class Mapper
 
     public function createObject( $array )
     {
+        $obj = $this->doCreateObject( $array );
+        return $obj;
     }
 
     abstract function update( \woo\domain\DomainObject $object );

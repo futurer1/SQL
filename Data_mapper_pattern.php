@@ -7,18 +7,11 @@ namespace woo\mapper;
 
 abstract class Mapper
 {
-    protected static $PDO; 
+    protected $PDO; 
   
-    public function __construct()
+    public function __construct(\PDO $pdo)
     {
-        if ( ! isset(self::$PDO) ) { 
-            $dsn = \woo\base\ApplicationRegistry::getDSN( );
-            if ( is_null( $dsn ) ) {
-                throw new \woo\base\AppException( "DNS не определен" );
-            }
-            self::$PDO = new \PDO( $dsn );
-            self::$PDO->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        }
+        $this->PDO = $pdo;
     }
 
     public function find($id)

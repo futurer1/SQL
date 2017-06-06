@@ -23,6 +23,13 @@ abstract class Mapper
 
     public function find($id)
     {
+        $this->selectstmt()->execute( array( $id ) );
+        $array = $this->selectstmt()->fetch( ); 
+        $this->selectstmt()->closeCursor( ); 
+        if ( ! is_array( $array ) ) { return null; }
+        if ( ! isset( $array['id'] ) ) { return null; }
+        $object = $this->createObject( $array );
+        return $object;
     }
 
     public function createObject( $array )

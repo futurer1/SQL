@@ -29,5 +29,8 @@ abstract class Mapper
     {
     }
 
-    
+    abstract function update( \woo\domain\DomainObject $object );
+    protected abstract function doCreateObject( array $array );
+    protected abstract function doInsert( \woo\domain\DomainObject $object );
+    protected abstract function selectStmt();
 }

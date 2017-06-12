@@ -50,4 +50,9 @@ abstract class Mapper
         return \woo\domain\ObjectWatcher::exists
                 ( $this->targetClass(), $id );
     }
+    
+    private function addToMap(\woo\domain\DomainObject $obj)
+    {
+        return \woo\domain\ObjectWatcher::add( $obj );
+    }
 }

@@ -55,4 +55,12 @@ abstract class Mapper
     {
         return \woo\domain\ObjectWatcher::add( $obj );
     }
+    
+    function find($id)
+    {
+        $old = $this->getFromMap( $id );
+        if ( ! is_null( $old ) ) { return $old; }
+        //читаем БД
+        return $object; 
+    }
 }

@@ -40,3 +40,14 @@ class ObjectWatcher {
         return null;
     }
 }
+
+
+namespace woo\mapper;
+abstract class Mapper
+{
+    private function getFromMap($id)
+    {
+        return \woo\domain\ObjectWatcher::exists
+                ( $this->targetClass(), $id );
+    }
+}

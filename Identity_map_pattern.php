@@ -8,7 +8,8 @@ class ObjectWatcher {
     private $all = array();
     private static $instance=null;
 
-    private function __construct() { }
+    private function __construct() {
+    }
   
     static function instance()
     {

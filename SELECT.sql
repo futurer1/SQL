@@ -45,3 +45,13 @@ WHERE 	`index_items`.`IndexID`=".$idi." AND
 	`items`.`ItemID`=`index_items`.`ItemID` AND 
 	`seo_metatags`.`MetatagsID`=`items`.`MetatagsID` 
 LIMIT 1
+
+
+/* Выведет 1 или 0 в зависимости от наличия записей, удовлетворяющих запросу */
+SELECT
+  IF (COUNT(*), 1, 0)
+FROM
+  table_name
+WHERE
+  field1='some' AND 
+  field2=234

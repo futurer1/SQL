@@ -55,3 +55,14 @@ FROM
 WHERE
   field1='some' AND 
   field2=234
+
+
+/* Взятие суммы из двух сумм, взятых из разных полей разных таблиц */
+SELECT SUM(tmp_sum)
+  FROM (        
+	SELECT SUM(tbl_1.field11) as tmp_sum FROM tbl_1
+	
+	UNION ALL
+  
+	SELECT SUM(tbl_2.field22) as tmp_sum FROM tbl_2
+  ) as tmp_tbl
